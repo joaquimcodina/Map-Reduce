@@ -1,0 +1,58 @@
+@startuml
+class entry{
+-entryDades : FileReader
+-totalCaracters : int
+
++entry()
++emptyFile() : void
++getNumCaracters() : int
++setNumCaracters() : void
+}
+
+class split{
+-numLinies : int
+-listaTotalCaracteres: List<String>
+
++actualitzarLista() : void
++getNumLinies() : int
++setNumLinies(numLinies : int) : void 
+
+
+}
+
+
+class Map{
+-mapFinal : HashMap<String, String>
+-numElementsMap : int
+
++getNumElementsMap() : int
++setNumElementsMap(numElementsMap : int) : void
+
+}
+
+class Shuffle {
+-shuffleFinal : HashMap<String, List>
+-numElementsShuffle : int
+
++getNumElementsShuffle() : int
++setNumElementsShuffle(numElementsShuffle : int) : void
+
+}
+
+
+class Reduce{
+-reduceFinal : HashMap<String, int>
+-numElementsReduce : int
+
++getNumElementsReduce() : int
++setNumElementsReduce(numElementsReduce : int) : void
+
+}
+
+
+class Output {
+-output : FileWriter
+
+
+}
+@enduml
