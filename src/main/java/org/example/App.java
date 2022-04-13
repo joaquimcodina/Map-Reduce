@@ -11,6 +11,10 @@ public class App
         Entry entry = new Entry();
         entry.guardarLinias();
         ArrayList<String> llista = entry.getLines();
+
+        Split split = new Split();
+        split.actualitzarLista(llista);
+        llista = split.getArrayCharacters();
         for (String s : llista) {
             System.out.println(s);
         }
