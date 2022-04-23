@@ -1,4 +1,3 @@
-package main.java.org.example;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,11 +8,11 @@ public class Entry {
     ArrayList<String> llista;
     private int numCaracters;
 
-    Entry(){
+    Entry(String file){
         try{
             numCaracters = 0;
             llista = new ArrayList<>();
-            br = new BufferedReader(new FileReader("Fitxers/Fitxer1.txt"));
+            br = new BufferedReader(new FileReader(file));
         } catch (IOException e) {
             System.out.println("Error E/S" + e);
         }
