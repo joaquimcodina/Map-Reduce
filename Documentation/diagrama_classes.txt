@@ -1,58 +1,52 @@
 @startuml
-class entry{
--entryDades : FileReader
--totalCaracters : int
-
-+entry()
-+emptyFile() : void
-+getNumCaracters() : int
-+setNumCaracters() : void
+class App {
++main(args[] : String) : void
 }
 
-class split{
--numLinies : int
--listaTotalCaracteres: List<String>
+class Entry{
+-br : BufferedReader
+-llista : ArrayList<String>
+-numCaracters : int
 
-+actualitzarLista() : void
-+getNumLinies() : int
-+setNumLinies(numLinies : int) : void 
-
-
+Entry()
++guardarLinias() : void
++getLines() : ArrayList<String>
 }
 
-
-class Map{
--mapFinal : HashMap<String, String>
+class Map {
 -numElementsMap : int
+-hashMap : HashMap<String,ArrayList<Integer>>
 
-+getNumElementsMap() : int
-+setNumElementsMap(numElementsMap : int) : void
++generarHashMap(llista : ArrayList<String>) : void
++getHashMap() : HashMap<String, ArrayList<Integer>>
+}
 
+class Reduce {
++generarReducing(hashMap : HashMap<String, ArrayList<Integer>>) : HashMap<String, ArrayList<Integer>>
+}
+
+class Result {
++getLengthList(llistaLength : ArrayList<String>) : int
++mostrarPercentatgeCaracter(hashMap : HashMap<String, ArrayList<Integer>>, len :_int, file : String) : void
 }
 
 class Shuffle {
--shuffleFinal : HashMap<String, List>
--numElementsShuffle : int
+-hashMap : HashMap<String, ArrayList<Integer>>
++generarShuffling(llista : ArrayList<String>) : HashMap<String, ArrayList<Integer>>
+}
 
-+getNumElementsShuffle() : int
-+setNumElementsShuffle(numElementsShuffle : int) : void
-
+class Split {
+-splitCharacter : ArrayList<String>
+-numLinies : int
+Split()
++actualitzarLlista(llista : ArrayList<String>) : void
++getArrayCharacters() : ArrayList<String>
 }
 
 
-class Reduce{
--reduceFinal : HashMap<String, int>
--numElementsReduce : int
-
-+getNumElementsReduce() : int
-+setNumElementsReduce(numElementsReduce : int) : void
-
-}
-
-
-class Output {
--output : FileWriter
-
-
-}
+Entry "1" -- "1" Split
+Split "1" -- "1" Map
+Map "1" -- "1" Shuffle
+Shuffle "1" -- "1" Reduce
+Reduce "1" -- "1" Result
 @enduml
