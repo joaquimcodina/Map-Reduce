@@ -1,45 +1,47 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 
+/**
+ * Aquesta es la Classe Map
+ *
+ * @author Joaquim Codina (1566940) i Marc Cives (1563480)
+ *
+ */
 public class Map {
-    private int numElementsMap;
-    HashMap<String, ArrayList<Integer>> hashMap = new LinkedHashMap<>();
-
-    public void generarHashMap(ArrayList<String> llista) {
+    /**
+     * Aquesta es la funció splitCharacter(), consisteix en aprofitar el ArrayList<String> que hem generat anteriorment
+     * en la funció generatesplitWord() de la Classe Split.
+     *
+     * Hem implementat un bucle for, que s'encarrega de comprovar que les paraules no tinguin caràcters repetits, en cas afirmatiu,
+     * s'esborren i emmagatzemem el resultat dins d'un nou ArrayList<String>, ja que l'objectiu d'aquesta pràctica es mostrar
+     * la freqüència dels caràcters per paraula (sense tenir en compte els caràcters repetits).
+     *
+     * @param llista on tenim emmagatzemat el contingut del fitxer de text, separat per paraules.
+     * @return ArrayList<String> separat per caràcters.
+     *
+     */
+    public ArrayList<String> splitCharacter(ArrayList<String> llista) {
+        ArrayList<String> splitCharacter = new ArrayList<>();
         for (String s : llista) {
             String[] temp = s.toLowerCase()
-                    .replace(" ", "")
+                    .replace(",", "")
                     .replace(".", "")
                     .replace(";", "")
-                    .replace("'","")
+                    .replace("'", "")
                     .replace("-", "")
                     .replace(":", "")
                     .replace("[", "")
-                    .replace("]","")
-                    .split(",");
+                    .replace("]", "")
+                    .split(" ");
 
-            for(int i=0; i<temp.length; i++){
-                if(!temp[i].equalsIgnoreCase("") && !hashMap.containsKey(temp[i])){
-                    ArrayList<Integer> valuesList = hashMap.get(temp[i]);
-                    if(valuesList == null) {
-                        valuesList = new ArrayList<>();
-                        valuesList.add(1);
-                    } else {
-                        valuesList.add(1);
+            for (int i = 0; i < temp.length; i++) {
+                for (int j = 0; j < temp[i].length(); j++) {
+                    if (temp[i].indexOf(temp[i].charAt(j)) == j) {
+                        splitCharacter.add(String.valueOf(temp[i].charAt(j)));
                     }
-                    hashMap.put(temp[i], valuesList);
                 }
             }
         }
+        return splitCharacter;
     }
-
-    public int getNumElementsMap() {
-        return numElementsMap;
-    }
-    public void setNumElementsMap(int x) {
-        numElementsMap = x;
-    }
-    public HashMap<String, ArrayList<Integer>> getHashMap() { return hashMap; }
 
 }
