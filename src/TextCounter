@@ -1,0 +1,6 @@
+#!/bin/bash
+javac App.java
+for arg;
+do
+	java App $arg
+done
