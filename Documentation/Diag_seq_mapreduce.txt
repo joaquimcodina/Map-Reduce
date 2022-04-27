@@ -1,0 +1,95 @@
+@startuml
+actor User
+boundary Programa
+
+entity Entry
+entity Split
+entity Map
+entity Shuffle
+entity Reduce
+entity Result
+
+
+
+User -> Programa : main()
+== Inicialización de elementos == 
+activate Programa
+group loop
+
+Programa -> Entry : <<Crea Entry>>
+activate Entry
+Entry -> Entry : File is correct?
+Entry --> Programa : <<return>>
+deactivate Entry
+
+Programa -> Split : <<Crea Split>>
+activate Split
+Split --> Programa : <<return>>
+deactivate Split
+
+Programa -> Map : <<Crea Map>>
+activate Map
+Map --> Programa : <<return>>
+deactivate Map
+
+Programa -> Shuffle : <<Crea Shuffle>>
+activate Shuffle
+Shuffle --> Programa : <<return>>
+deactivate Shuffle
+
+Programa -> Reduce : <<Crea Reduce>>
+activate Reduce
+Reduce --> Programa : <<return>>
+deactivate Reduce
+
+Programa -> Result : <<Crea Result>>
+activate Result
+Result --> Programa : <<return>>
+deactivate Result
+
+== Paralelización Threads == 
+
+Programa -> Entry : getLines()
+activate Entry
+Entry --> Programa : <<return>>
+deactivate Entry
+
+Programa -> Split : << getArrayCharacters()
+activate Split
+Split --> Split : <<Paraleliza Split>>
+Split --> Programa : <<return>>
+deactivate Split
+
+Programa -> Map : << generarHashMap(llista)
+activate Map
+Map --> Map : <<Paraleliza Map>>
+Map --> Programa : <<return>>
+deactivate Map
+
+Programa -> Shuffle : generarShuffling(llista)
+activate Shuffle
+Shuffle --> Shuffle : <<Paralelización shuffle>>
+Shuffle --> Programa : <<return>>
+deactivate Shuffle
+
+Programa -> Reduce : generarReducing(llista)
+activate Reduce
+Reduce --> Reduce : <<Paralelización Reduce>>
+Reduce --> Programa : <<return>>
+deactivate Reduce
+
+Programa -> Result : getLengthList(llista)
+activate Result
+Result -> Result : mostrarPercentatgeCaracter(hashmap,len,file)
+activate Result
+Result --> Result : <<Paralelización result>>
+deactivate Result
+Result --> Programa : <<return>>
+deactivate Result
+Programa --> User : <<return informació main>>
+deactivate Programa
+
+
+deactivate Programa
+end
+@enduml
