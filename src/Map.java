@@ -36,11 +36,13 @@ public class Map extends Thread{
         llistaAux = aux;
     }
 
+
     public ArrayList<String> getLlistaRetorn() {
         return this.splitCharacters;
     }
 
-    public ArrayList<String> splitCharacter(ArrayList<String> llista) {
+   public ArrayList<String> splitCharacter(ArrayList<String> llista) {
+
         for (String s : llista) {
             String[] temp = s.toLowerCase()
                     .replace(",", "")

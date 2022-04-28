@@ -36,7 +36,6 @@ public class App
             Thread.sleep(3);
 
             int len = result.getLengthList(llista);
-            System.out.println(reduce.getHashAux());
             result.mostrarPercentatgeCaracter(reduce.getHashAux(), len, file);
         }
     }
