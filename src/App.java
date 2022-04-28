@@ -27,13 +27,13 @@ public class App
 
             map.setLlistaAux(llista);
             map.start();
-            Thread.sleep(5);
+            Thread.sleep(20);
 
             HashMap<String, ArrayList<Integer>> hashMap = shuffle.generarShuffling(map.splitCharacter(llista));
 
             reduce.setHashAux(hashMap);
             reduce.start();
-            Thread.sleep(3);
+            Thread.sleep(20);
 
             int len = result.getLengthList(llista);
             result.mostrarPercentatgeCaracter(reduce.getHashAux(), len, file);
