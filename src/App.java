@@ -10,28 +10,34 @@ import java.util.HashMap;
  */
 public class App
 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         for (String file : args) {
             Entry entry = new Entry(file);
+            Split split = new Split();
+            Map map = new Map();
+            Shuffle shuffle = new Shuffle();
+            Reduce reduce = new Reduce();
+            Result result = new Result();
+
             entry.guardarLinias();
             ArrayList<String> llista = entry.getLines();
 
-            Split split = new Split();
             llista = split.generatesplitWord(llista);
 
-            Map map = new Map();
-            ArrayList<String> characterList = map.splitCharacter(llista);
+            map.setLlistaAux(llista);
+            map.start();
+            Thread.sleep(5);
 
-            Shuffle shuffle = new Shuffle();
-            HashMap<String, ArrayList<Integer>> hashMap = shuffle.generarShuffling(characterList);
+            HashMap<String, ArrayList<Integer>> hashMap = shuffle.generarShuffling(map.splitCharacter(llista));
 
-            Reduce reduce = new Reduce();
-            hashMap = reduce.generarReducing(hashMap);
+            reduce.setHashAux(hashMap);
+            reduce.start();
+            Thread.sleep(3);
 
-            Result result = new Result();
             int len = result.getLengthList(llista);
-            result.mostrarPercentatgeCaracter(hashMap, len, file);
+            System.out.println(reduce.getHashAux());
+            result.mostrarPercentatgeCaracter(reduce.getHashAux(), len, file);
         }
     }
 }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author Joaquim Codina (1566940) i Marc Cives (1563480)
  *
  */
-public class Map {
+public class Map extends Thread{
     /**
      * Aquesta es la funció splitCharacter(), consisteix en aprofitar el ArrayList<String> que hem generat anteriorment
      * en la funció generatesplitWord() de la Classe Split.
@@ -19,8 +19,28 @@ public class Map {
      * @return ArrayList<String> separat per caràcters.
      *
      */
+
+
+    ArrayList<String> llistaAux;
+    ArrayList<String> splitCharacters;
+    Map() {
+        splitCharacters = new ArrayList<>();
+    }
+
+    @Override
+    public void run() {
+        splitCharacters = this.splitCharacter(llistaAux);
+    }
+
+    public void setLlistaAux(ArrayList<String> aux) {
+        llistaAux = aux;
+    }
+
+    public ArrayList<String> getLlistaRetorn() {
+        return this.splitCharacters;
+    }
+
     public ArrayList<String> splitCharacter(ArrayList<String> llista) {
-        ArrayList<String> splitCharacter = new ArrayList<>();
         for (String s : llista) {
             String[] temp = s.toLowerCase()
                     .replace(",", "")
@@ -36,12 +56,12 @@ public class Map {
             for (int i = 0; i < temp.length; i++) {
                 for (int j = 0; j < temp[i].length(); j++) {
                     if (temp[i].indexOf(temp[i].charAt(j)) == j) {
-                        splitCharacter.add(String.valueOf(temp[i].charAt(j)));
+                        splitCharacters.add(String.valueOf(temp[i].charAt(j)));
                     }
                 }
             }
         }
-        return splitCharacter;
+        return splitCharacters;
     }
 
 }

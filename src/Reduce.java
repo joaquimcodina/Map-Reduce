@@ -7,7 +7,7 @@ import java.util.HashMap;
  * @author Joaquim Codina (1566940) i Marc Cives (1563480)
  *
  */
-public class Reduce {
+public class Reduce extends Thread{
 
     /**
      * Aquesta es la funció generarReducing(), bàsicament s'encarrega d'obtenir el HashMap amb els caràcters i el seu
@@ -19,7 +19,26 @@ public class Reduce {
      * @return hashMap on tenim emmagatzemat els caràcters amb el seu nombre d'aparicions dins del fitxer de text.
      *
      */
-    public HashMap<String, ArrayList<Integer>> generarReducing(HashMap<String, ArrayList<Integer>> hashMap){
+    private HashMap<String, ArrayList<Integer>> hashAux;
+    private HashMap<String, ArrayList<Integer>> hashRetorn;
+
+    Reduce() {
+        hashRetorn = new HashMap<>();
+    }
+
+    public void run() {
+        this.generarReducing(hashAux);
+    }
+
+    public void setHashAux(HashMap<String, ArrayList<Integer>> aux) {
+        hashAux = aux;
+    }
+
+    public HashMap<String, ArrayList<Integer>> getHashAux() {
+        return hashRetorn;
+    }
+
+    public void generarReducing(HashMap<String, ArrayList<Integer>> hashMap){
 
         for (String key : hashMap.keySet()) {
             Integer suma=0;
@@ -31,6 +50,6 @@ public class Reduce {
             resultat.add(suma);
             hashMap.put(key, resultat);
         }
-        return hashMap;
+        hashRetorn = hashMap;
     }
 }
