@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.*;
 
 /**
  * Aquesta es la Classe Split
@@ -16,25 +15,90 @@ public class Split {
      * Utilitza un bucle foreach, que s'encarrega de reemplaçar els caràcters especials i a continuació, separar cadascuna de les linies
      * del fitxer en paraules, i ho emmagatzema en un ArrayList<String> anomenat splitWord.
      *
-     * @param llista ArrayList on tenim emmagatzemat el contingut del fitxer de text.
-     * @return ArrayList del contingut del fitxer de text, separat per paraules.
+     * llista ArrayList on tenim emmagatzemat el contingut del fitxer de text.
+     * ArrayList del contingut del fitxer de text, separat per paraules.
      *
      */
-    public ArrayList<String> generatesplitWord(ArrayList<String> llista) {
-        ArrayList<String> splitWord = new ArrayList<>();
-        for (String s : llista) {
-            String[] temp = s.toLowerCase()
-                    .replace(",", "")
-                    .replace(".", "")
-                    .replace(";", "")
-                    .replace("'", "")
-                    .replace("-", "")
-                    .replace(":", "")
-                    .replace("[", "")
-                    .replace("]", "")
-                    .split(" ");
-            splitWord.add(Arrays.toString(temp));
+    public String generatesplitWord(String fileName, int count) throws FileNotFoundException {
+        File file = new File(fileName);
+        FileInputStream fileInputStream = new FileInputStream(file);
+        String encoding = "UTF-8";
+        BufferedReader reader;
+        BufferedWriter writer;
+        String nameWriter="";
+        try{
+            nameWriter = "split"+count+".txt";
+            reader = new BufferedReader(new InputStreamReader(fileInputStream, encoding));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(nameWriter), encoding));
+            for (String line; (line = reader.readLine()) != null;) {
+                String[] temp = line.toLowerCase()
+                        //.replaceAll("[\\dA-Za-z]", " ")
+                        .replaceAll("[0-9]", "")
+                        .replace(",", "")
+                        .replace(".", "")
+                        .replace(";", "")
+                        .replace("'", "")
+                        .replace("-", "")
+                        .replace(":", "")
+                        .replace("[", "")
+                        .replace("]", "")
+                        .replace("/", "")
+                        .replace("›", "")
+                        .replace("<", "")
+                        .replace(">", "")
+//                        .replace("•", "").
+//                        .replace("“", "")
+//                        .replace("„", "")
+//                        .replace("”", "")
+//                        .replace("_", "")
+//                        .replace("’", "")
+//                        .replace("‘", "")
+//                        .replace("¡", "")
+//                        .replace("!", "")
+//                        .replace("«", "")
+//                        .replace("»", "")
+//                        .replace("º", "")
+//                        .replace("°", "")
+//                        .replace("ª", "")
+//                        .replace("=", "")
+//                        .replace("&", "")
+//                        .replace("%", "")
+//                        .replace("|", "")
+//                        .replace("@", "")
+//                        .replace("$", "")
+//                        .replace("?", "")
+//                        .replace("¿", "")
+//                        .replace("´", "")
+//                        .replace("`", "")
+//                        .replace("{", "")
+//                        .replace("}", "")
+//                        .replace("(", "")
+//                        .replace(")", "")
+//                        .replace("+", "")
+//                        .replace("*", "")
+//                        .replace(",", "")
+//                        .replace("—", "")
+//                        .replace(".", "")
+//                        .replace(";", "")
+//                        .replace("'", "")
+//                        .replace("-", "")
+//                        .replace(":", "")
+//                        .replace("[", "")
+//                        .replace("]", "")
+                        .split(" ");
+                for (String s : temp) {
+                    writer.write(s);
+                    writer.newLine();
+                }
+            }
+            writer.close();
+            reader.close();
+            fileInputStream.close();
+            file.delete();
         }
-        return splitWord;
+        catch (IOException e){
+            System.out.println("Error: " + e);
+        }
+        return nameWriter;
     }
 }
