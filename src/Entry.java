@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -10,46 +8,31 @@ import java.util.ArrayList;
  *
  */
 public class Entry {
-    BufferedReader br;
-    ArrayList<String> llista;
-
-    /**
-     * Aquesta es la funció Entry, que consisteix en inicialitzar un ArrayList<String> on anira el contingut del
-     * nostre fitxer de text, i un BufferedReader, que s'encarrega de llegir el contingut del fitxer de text linia per linia.
-     *
-     * @param file fitxer de text passat per paràmetre d'entrada.
-     *
-     */
-    Entry(String file){
-        try{
-            llista = new ArrayList<>();
-            br = new BufferedReader(new FileReader(file));
-        } catch (IOException e) {
-            System.out.println("Error E/S" + e);
-        }
-    }
-    /**
-     * Aquesta es la funció guardarLinias(), consisteix en guardar el contingut del fitxer de text linia per linia
-     * en el ArrayList<String>.
-     *
-     */
-    public void guardarLinias(){
-        try{
-            String linea = br.readLine();
-            while (linea != null) {
-                llista.add(linea);
-                linea = br.readLine();
+    public ArrayList<String> generarFitxers(String fitxer, int maxlines, ArrayList<String> llistaFitxers) {
+        String encoding = "UTF-8";
+        BufferedReader reader;
+        BufferedWriter writer;
+        String name = "";
+        try {
+            int count = 0;
+            name = "temp"+(0)+".txt";
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(fitxer), encoding));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(name), encoding));
+            for (String line; (line = reader.readLine()) != null;) {
+                if (count++ % maxlines == 0) {
+                    writer.close();
+                    name = "temp"+(count / maxlines)+".txt";
+                    writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(name), encoding));
+                    llistaFitxers.add(name);
+                }
+                writer.write(line);
+                writer.newLine();
             }
+            writer.close();
+            reader.close();
+        } catch (IOException e){
+            System.out.println("Error " + e);
         }
-        catch (IOException e){
-            System.out.println("Error: " + e);
-        }
+        return llistaFitxers;
     }
-    /**
-     * Aquesta es la funció getLines(), retorna el ArrayList<String> on tenim emmagatzemat el contingut del fitxer.
-     *
-     * @return llista.
-     *
-     */
-    public ArrayList<String> getLines(){ return llista; };
 }
