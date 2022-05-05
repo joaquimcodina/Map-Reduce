@@ -1,6 +1,5 @@
 #!/bin/bash
-javac App.java
 for arg;
 do
-	java App $arg
+	java App /data/$arg
 done
