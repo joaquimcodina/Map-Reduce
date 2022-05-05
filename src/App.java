@@ -1,5 +1,5 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Aquesta es la Classe principal, on fem crides a les diferents funcions de les altres classes per dur a terme
@@ -8,35 +8,69 @@ import java.util.HashMap;
  * @author Joaquim Codina (1566940) i Marc Cives (1563480)
  *
  */
-public class App
-{
-    public static void main(String[] args) throws InterruptedException {
+public class App {
+    public static void main(String[] args) throws InterruptedException, FileNotFoundException {
 
+        long inicio = System.currentTimeMillis();
         for (String file : args) {
-            Entry entry = new Entry(file);
+            ArrayList<String> llistaFitxers = new ArrayList<>();
+            ArrayList<Map> mapThreads = new ArrayList<>();
+            ArrayList<Shuffle> shuffleThreads = new ArrayList<>();
+            ArrayList<Reduce> reduceThreads = new ArrayList<>();
+            Entry entry = new Entry();
+            //Shuffle shuffle = new Shuffle();
             Split split = new Split();
-            Map map = new Map();
-            Shuffle shuffle = new Shuffle();
-            Reduce reduce = new Reduce();
             Result result = new Result();
+            int len=0, max_lines=10000, count=0;
 
-            entry.guardarLinias();
-            ArrayList<String> llista = entry.getLines();
+            System.out.print("FASE ENTRY ");
+            llistaFitxers = entry.generarFitxers(file, max_lines, llistaFitxers);
+            System.out.println("OK");
 
-            llista = split.generatesplitWord(llista);
+            System.out.print("FASE SPLIT ");
+            for(String fileName : llistaFitxers){
+                mapThreads.add(new Map(split.generatesplitWord(fileName, count)));
+                count++;
+            }
+            System.out.println("OK");
 
-            map.setLlistaAux(llista);
-            map.start();
-            Thread.sleep(20);
+            System.out.print("FASE MAP ");
+            for(Map map : mapThreads){
+                map.start();
+            }
+            for(Map map : mapThreads){
+                map.join();
+                len += map.getLengthFitxer();
+                shuffleThreads.add(new Shuffle(map.getFileName(), map.getLlistaCaracters()));
+            }
+            System.out.println("OK");
 
-            HashMap<String, ArrayList<Integer>> hashMap = shuffle.generarShuffling(map.splitCharacter(llista));
+            System.out.print("FASE SHUFFLE ");
+            for(Shuffle shuffle : shuffleThreads){
+                shuffle.start();
+            }
+            for(Shuffle shuffle : shuffleThreads){
+                shuffle.join();
+                reduceThreads.add(new Reduce(shuffle.getLlistaCaracters()));
+            }
+            System.out.println("OK");
 
-            reduce.setHashAux(hashMap);
-            reduce.start();
-            Thread.sleep(20);
+            System.out.print("FASE REDUCE ");
+            for(Reduce reduce : reduceThreads){
+                reduce.start();
+            }
+            for(Reduce reduce : reduceThreads){
+                reduce.join();
+            }
+            System.out.println("OK\n");
 
-            int len = result.getLengthList(llista);
-            result.mostrarPercentatgeCaracter(reduce.getHashAux(), len, file);
+            result.mostrarPercentatgeCaracter(reduceThreads, len, file);
+            reduceThreads.clear();
+            shuffleThreads.clear();
+            mapThreads.clear();
         }
+        long fin = System.currentTimeMillis();
+        double tiempo = (double) ((fin - inicio)/1000);
+        System.out.println("Temps d'execució: "+tiempo +" segons");
     }
 }
