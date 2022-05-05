@@ -2,51 +2,58 @@
 class App {
 +main(args[] : String) : void
 }
-
+package "MapReduceApp" {
 class Entry{
--br : BufferedReader
--llista : ArrayList<String>
--numCaracters : int
-
-Entry()
-+guardarLinias() : void
-+getLines() : ArrayList<String>
++generarFitxers(fitxers: String, maxlines: int, llistaFitxers: ArrayList<String>) : ArrayList<String>
 }
 
 class Map {
--numElementsMap : int
--hashMap : HashMap<String,ArrayList<Integer>>
+lengthFitxer : int
+fileName: String
+caracters: ArrayList<String>
 
-+generarHashMap(llista : ArrayList<String>) : void
-+getHashMap() : HashMap<String, ArrayList<Integer>>
++Map()
++run() : void
++getLengthFitxer() : int
++getFileName() : String
++getLlistaCaracters() : ArrayList<String>
++splitCharacter() : void
+
 }
 
 class Reduce {
-+generarReducing(hashMap : HashMap<String, ArrayList<Integer>>) : HashMap<String, ArrayList<Integer>>
+llistaCaracters: ArrayList<String>
+hashMap : HashMap<String,Integer>
+
++Reduce()
++run() : void
++setHashMap(hashMap: HashMap<String,Integer>: void
++getHashMap() : HashMap<String,Integer>
++generarReducing() : void
+
+
 }
 
 class Result {
-+getLengthList(llistaLength : ArrayList<String>) : int
-+mostrarPercentatgeCaracter(hashMap : HashMap<String, ArrayList<Integer>>, len :_int, file : String) : void
++mostrarPercentatgeCaracter(reduceThreads: ArrayList<Reduce>, len: int, file : String) : void
 }
 
 class Shuffle {
--hashMap : HashMap<String, ArrayList<Integer>>
-+generarShuffling(llista : ArrayList<String>) : HashMap<String, ArrayList<Integer>>
+fileName : String
+llistaCaracters : ArrayList<String>
++Shuffle(fileName : String, llistaCaracters : ArrayList<String>)
++run() : void
++getLlistaCaracters() : ArrayList<String>
++generarShuffling() : void
 }
 
 class Split {
 -splitCharacter : ArrayList<String>
 -numLinies : int
 Split()
-+actualitzarLlista(llista : ArrayList<String>) : void
-+getArrayCharacters() : ArrayList<String>
++generatesplitWord(filename : String, count : int) : String
 }
 
-
-Entry "1" -- "1" Split
-Split "1" -- "1" Map
-Map "1" -- "1" Shuffle
-Shuffle "1" -- "1" Reduce
-Reduce "1" -- "1" Result
+}
+MapReduceApp o-- App
 @enduml
