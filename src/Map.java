@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -7,6 +8,36 @@ import java.util.ArrayList;
  *
  */
 public class Map extends Thread{
+    int lengthFitxer;
+    String fileName;
+    ArrayList<String> caracters;
+
+    public Map(String fileName) {
+        this.fileName = fileName;
+        this.caracters = new ArrayList<>();
+    }
+
+    @Override
+    public void run() {
+        try {
+            this.splitCharacter();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getLengthFitxer(){
+        return this.lengthFitxer;
+    }
+
+    public String getFileName(){
+        return this.fileName;
+    }
+
+    public ArrayList<String> getLlistaCaracters(){
+        return this.caracters;
+    }
+
     /**
      * Aquesta es la funció splitCharacter(), consisteix en aprofitar el ArrayList<String> que hem generat anteriorment
      * en la funció generatesplitWord() de la Classe Split.
@@ -15,55 +46,30 @@ public class Map extends Thread{
      * s'esborren i emmagatzemem el resultat dins d'un nou ArrayList<String>, ja que l'objectiu d'aquesta pràctica es mostrar
      * la freqüència dels caràcters per paraula (sense tenir en compte els caràcters repetits).
      *
-     * @param llista on tenim emmagatzemat el contingut del fitxer de text, separat per paraules.
-     * @return ArrayList<String> separat per caràcters.
+     * llista on tenim emmagatzemat el contingut del fitxer de text, separat per paraules.
      *
      */
-
-
-    ArrayList<String> llistaAux;
-    ArrayList<String> splitCharacters;
-    Map() {
-        splitCharacters = new ArrayList<>();
-    }
-
-    @Override
-    public void run() {
-        splitCharacters = this.splitCharacter(llistaAux);
-    }
-
-    public void setLlistaAux(ArrayList<String> aux) {
-        llistaAux = aux;
-    }
-
-
-    public ArrayList<String> getLlistaRetorn() {
-        return this.splitCharacters;
-    }
-
-   public ArrayList<String> splitCharacter(ArrayList<String> llista) {
-
-        for (String s : llista) {
-            String[] temp = s.toLowerCase()
-                    .replace(",", "")
-                    .replace(".", "")
-                    .replace(";", "")
-                    .replace("'", "")
-                    .replace("-", "")
-                    .replace(":", "")
-                    .replace("[", "")
-                    .replace("]", "")
-                    .split(" ");
-
-            for (int i = 0; i < temp.length; i++) {
-                for (int j = 0; j < temp[i].length(); j++) {
-                    if (temp[i].indexOf(temp[i].charAt(j)) == j) {
-                        splitCharacters.add(String.valueOf(temp[i].charAt(j)));
-                    }
-                }
-            }
-        }
-        return splitCharacters;
-    }
-
+   public void splitCharacter() throws FileNotFoundException {
+       File file = new File(fileName);
+       FileInputStream fileInputStream = new FileInputStream(file);
+       String encoding = "UTF-8";
+       BufferedReader reader;
+       try {
+           reader = new BufferedReader(new InputStreamReader(fileInputStream, encoding));
+           for (String line; (line = reader.readLine()) != null; ) {
+               for (String s : line.split(" ")) {
+                   for (int j = 0; j < s.length(); j++) {
+                       String caracter = String.valueOf(s.charAt(j));
+                       if (!caracters.contains(caracter)) {
+                           this.caracters.add(caracter);
+                       }
+                   }
+               }
+               this.lengthFitxer += line.split(" ").length;
+           }
+           reader.close();
+       } catch (IOException e) {
+           System.out.println("Error: " + e);
+       }
+   }
 }
