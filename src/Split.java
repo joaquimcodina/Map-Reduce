@@ -23,70 +23,13 @@ public class Split {
         File file = new File(fileName);
         FileInputStream fileInputStream = new FileInputStream(file);
         String encoding = "UTF-8";
-        BufferedReader reader;
-        BufferedWriter writer;
         String nameWriter="";
         try{
             nameWriter = "split"+count+".txt";
-            reader = new BufferedReader(new InputStreamReader(fileInputStream, encoding));
-            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(nameWriter), encoding));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream, encoding));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(nameWriter), encoding));
             for (String line; (line = reader.readLine()) != null;) {
-                String[] temp = line.toLowerCase()
-                        //.replaceAll("[\\dA-Za-z]", " ")
-                        .replaceAll("[0-9]", "")
-                        .replace(",", "")
-                        .replace(".", "")
-                        .replace(";", "")
-                        .replace("'", "")
-                        .replace("-", "")
-                        .replace(":", "")
-                        .replace("[", "")
-                        .replace("]", "")
-                        .replace("/", "")
-                        .replace("›", "")
-                        .replace("<", "")
-                        .replace(">", "")
-//                        .replace("•", "").
-//                        .replace("“", "")
-//                        .replace("„", "")
-//                        .replace("”", "")
-//                        .replace("_", "")
-//                        .replace("’", "")
-//                        .replace("‘", "")
-//                        .replace("¡", "")
-//                        .replace("!", "")
-//                        .replace("«", "")
-//                        .replace("»", "")
-//                        .replace("º", "")
-//                        .replace("°", "")
-//                        .replace("ª", "")
-//                        .replace("=", "")
-//                        .replace("&", "")
-//                        .replace("%", "")
-//                        .replace("|", "")
-//                        .replace("@", "")
-//                        .replace("$", "")
-//                        .replace("?", "")
-//                        .replace("¿", "")
-//                        .replace("´", "")
-//                        .replace("`", "")
-//                        .replace("{", "")
-//                        .replace("}", "")
-//                        .replace("(", "")
-//                        .replace(")", "")
-//                        .replace("+", "")
-//                        .replace("*", "")
-//                        .replace(",", "")
-//                        .replace("—", "")
-//                        .replace(".", "")
-//                        .replace(";", "")
-//                        .replace("'", "")
-//                        .replace("-", "")
-//                        .replace(":", "")
-//                        .replace("[", "")
-//                        .replace("]", "")
-                        .split(" ");
-                for (String s : temp) {
+                for (String s : line.toLowerCase().split(" ")) {
                     writer.write(s);
                     writer.newLine();
                 }
