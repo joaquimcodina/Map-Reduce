@@ -1,6 +1,7 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Aquesta es la Classe Reduce
@@ -10,24 +11,16 @@ import java.util.HashMap;
  */
 public class Reduce extends Thread{
 
-    ArrayList<String> llistaCaracters;
-    HashMap<String, Integer> hashMap;
-    public Reduce(ArrayList<String> llistaCaracters) {
-        this.llistaCaracters = llistaCaracters;
-        hashMap = new HashMap<>();
+    String fileName;
+    String caracter;
+    public Reduce(String fileName, String caracter) {
+        this.fileName = fileName;
+        this.caracter = caracter;
     }
 
     @Override
     public void run() {
         this.generarReducing();
-    }
-
-    public void setHashMap(HashMap<String, Integer> hashMap){
-        this.hashMap = hashMap;
-    }
-
-    public HashMap<String, Integer> getHashMap() {
-        return this.hashMap;
     }
 
     /**
@@ -40,22 +33,14 @@ public class Reduce extends Thread{
      */
     public void generarReducing(){
         try {
-            BufferedReader readerValueCaracter;
-            int suma=0;
+            Path path = Paths.get("value_"+caracter+".txt");
             String encoding = "UTF-8";
-            for(String caracter : llistaCaracters){
-                File fileValueCaracter = new File("value_"+caracter+".txt");
-                FileInputStream fileValueInputStream = new FileInputStream(fileValueCaracter);
-                readerValueCaracter = new BufferedReader(new InputStreamReader(fileValueInputStream, encoding));
-                for (String value; (value = readerValueCaracter.readLine()) != null; ) {
-                    suma += Integer.parseInt(value);
-                }
-                hashMap.put(caracter, suma);
-                readerValueCaracter.close();
-                fileValueInputStream.close();
-                suma = 0;
-            }
-
+            BufferedWriter sumaKey = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("suma_"+caracter+".txt"), encoding));
+            sumaKey.write(String.valueOf(Files.lines(path).count()));
+            sumaKey.newLine();
+            sumaKey.close();
+            File fileSplit = new File(fileName);
+            fileSplit.delete();
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
