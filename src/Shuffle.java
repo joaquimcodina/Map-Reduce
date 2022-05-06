@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.ArrayList;
 
 /**
  * Aquesta es la Classe Shuffle
@@ -10,10 +9,10 @@ import java.util.ArrayList;
 public class Shuffle extends Thread{
 
     String fileName;
-    ArrayList<String> llistaCaracters;
-    public Shuffle(String fileName, ArrayList<String> llistaCaracters) {
-        this.llistaCaracters = llistaCaracters;
+    String caracter;
+    public Shuffle(String fileName, String caracter) {
         this.fileName = fileName;
+        this.caracter = caracter;
     }
 
     @Override
@@ -21,8 +20,12 @@ public class Shuffle extends Thread{
         this.generarShuffling();
     }
 
-    public ArrayList<String> getLlistaCaracters(){
-        return this.llistaCaracters;
+    public String getCaracter(){
+        return this.caracter;
+    }
+
+    public String getFileName(){
+        return this.fileName;
     }
 
     /**
@@ -38,25 +41,21 @@ public class Shuffle extends Thread{
      */
     public void generarShuffling() {
         try{
-            File fitxerSplit = new File(fileName);
-            BufferedReader readerShuffle;
-            BufferedWriter writer;
             String encoding = "UTF-8";
-            for (String caracter : llistaCaracters) {
-                FileInputStream shuffleInputStream = new FileInputStream(fitxerSplit);
-                readerShuffle = new BufferedReader(new InputStreamReader(shuffleInputStream, encoding));
-                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("value_"+caracter+".txt", true), encoding));
-                for (String line; (line = readerShuffle.readLine()) != null;) {
-                    if (line.contains(caracter)) {
-                        writer.write("1");
-                        writer.newLine();
-                    }
+            File fitxerSplit = new File(fileName);
+            FileInputStream shuffleInputStream = new FileInputStream(fitxerSplit);
+            BufferedReader readerShuffle;
+            readerShuffle = new BufferedReader(new InputStreamReader(shuffleInputStream, encoding));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("value_"+caracter+".txt", true), encoding));
+            for (String line; (line = readerShuffle.readLine()) != null;) {
+                if (line.contains(caracter)) {
+                    writer.write("1");
+                    writer.newLine();
                 }
-                readerShuffle.close();
-                shuffleInputStream.close();
-                writer.close();
             }
-            fitxerSplit.delete();
+            writer.close();
+            readerShuffle.close();
+            shuffleInputStream.close();
         }
         catch (IOException e){
             System.out.println("Error: " + e);
