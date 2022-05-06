@@ -1,7 +1,5 @@
-import java.io.File;
+import java.io.*;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Aquesta es la Classe Result, on mostra per pantalla els resultats obtinguts.
@@ -14,36 +12,26 @@ public class Result {
     /**
      * Aquesta es la funció mostrarPercentatgeCaracter(), bàsicament mostra el resultat obtingut per pantalla.
      *
-     * @param reduceThreads HashMap on tenim emmagatzemat els caracters amb el seu nombre d'aparicions en el fitxer de text.
      * @param len Mida del fitxer de text (per paraules).
      * @param file Nom del fitxer de text.
      *
      */
-    public void mostrarPercentatgeCaracter(ArrayList<Reduce> reduceThreads, int len, String file){
+    public void mostrarPercentatgeCaracter(int len, String file) throws IOException {
         DecimalFormat df = new DecimalFormat("0.00");
-        HashMap<String, Integer> hashMap = new HashMap<>();
-        for (Reduce reduce : reduceThreads) {
-            for (String key : reduce.getHashMap().keySet()) {
-                hashMap.put(key, reduce.getHashMap().get(key));
-            }
-        }
-
+        String encoding = "UTF-8";
         File fitxer = new File(file);
+        File keys = new File("keys.txt");
         System.out.println(fitxer.getName() + ":");
-        for (String key : hashMap.keySet()) {
-            System.out.println(key + " : " + df.format((Double.valueOf(hashMap.get(key)) / len) * 100) + "%");
+        BufferedReader buffersKeys = new BufferedReader(new InputStreamReader(new FileInputStream(keys), encoding));
+        for (String key; (key = buffersKeys.readLine()) != null; ) {
+            File resultat = new File("suma_"+key+".txt");
+            File valor = new File("value_"+key+".txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(resultat), encoding));
+            System.out.println(key + " : " + df.format((Double.parseDouble(reader.readLine()) / len) * 100) + "%");
+            resultat.delete();
+            valor.delete();
         }
+        keys.delete();
         System.out.println("\n");
-
-        for(Reduce reduce : reduceThreads){
-            for(String caracter : reduce.llistaCaracters){
-                File fileCaracter = new File("key_"+caracter+".txt");
-                fileCaracter.delete();
-                for(String valueCaracter : reduce.llistaCaracters) {
-                    File fileValueCaracter = new File("value_"+valueCaracter+".txt");
-                    fileValueCaracter.delete();
-                }
-            }
-        }
     }
 }
