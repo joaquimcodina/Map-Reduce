@@ -1,5 +1,6 @@
 import java.io.*;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Aquesta es la Classe Map
@@ -10,11 +11,11 @@ import java.util.ArrayList;
 public class Map extends Thread{
     int lengthFitxer;
     String fileName;
-    ArrayList<String> caracters;
+    Set<String> caracters;
 
     public Map(String fileName) {
         this.fileName = fileName;
-        this.caracters = new ArrayList<>();
+        this.caracters = new HashSet<>();
     }
 
     @Override
@@ -34,7 +35,7 @@ public class Map extends Thread{
         return this.fileName;
     }
 
-    public ArrayList<String> getLlistaCaracters(){
+    public Set<String> getLlistaCaracters(){
         return this.caracters;
     }
 
@@ -53,14 +54,13 @@ public class Map extends Thread{
        File file = new File(fileName);
        FileInputStream fileInputStream = new FileInputStream(file);
        String encoding = "UTF-8";
-       BufferedReader reader;
        try {
-           reader = new BufferedReader(new InputStreamReader(fileInputStream, encoding));
+           BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream, encoding));
            for (String line; (line = reader.readLine()) != null; ) {
                for (String s : line.split(" ")) {
                    for (int j = 0; j < s.length(); j++) {
                        String caracter = String.valueOf(s.charAt(j));
-                       if (!caracters.contains(caracter)) {
+                       if(caracter.matches("[A-Za-zà-ùá-ú]+")){
                            this.caracters.add(caracter);
                        }
                    }
