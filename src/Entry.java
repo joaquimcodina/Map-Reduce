@@ -11,7 +11,7 @@ public class Entry {
 
     /**
      * Aquesta es el procés generarFitxers(), accedeix al fitxer de text passat per paràmetre d'entrada, i genera
-     * fitxers de text temporals amb un nombre de linies màxim.
+     * fitxers de text temporals amb un nombre de linies màxim (en aquest cas 10000 linies màxim per fitxer).
      *
      * @param fitxer el nom del fitxer de text.
      * @param maxlines el nombre de linies màxim que tindra cadascun dels fitxers de text temporals.
