@@ -24,11 +24,11 @@ public class Reduce extends Thread{
     }
 
     /**
-     * Aquesta es la funció generarReducing(), bàsicament s'encarrega d'obtenir el HashMap amb els caràcters i el seu
-     * nombre d'aparicions, i fer la suma del nombre d'aparicions de cada caràcter.
+     * Aquesta es la funció generarReducing(), a del caràcter que li hem assignat d'un caràcter que li hem assignat a cada Thread Reduce,
+     * s'encarrega de cercar el fitxer de text temporal d'aquell caràcter on tenim emmagatzemat el nombre d'aparicions, i acte seguit
+     * realitzat la suma del nombre d'aparicions.
      *
-     * El hashMap que hem obtingut de la funció generarShuffling() de la Classe Shuffle, on tenim emmagatzemat
-     * els caràcters amb el seu nombre d'aparicions (sense sumar).
+     * El resultat d'aquesta suma s'emmagatzema dins d'un altre fitxer de text temporal.
      *
      */
     public void generarReducing(){
