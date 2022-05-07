@@ -10,9 +10,9 @@ class Entry{
 class Map {
 lengthFitxer : int
 fileName: String
-caracters: ArrayList<String>
+caracters: Set<String>
 
-+Map()
++Map(fileName: String)
 +run() : void
 +getLengthFitxer() : int
 +getFileName() : String
@@ -22,35 +22,29 @@ caracters: ArrayList<String>
 }
 
 class Reduce {
-llistaCaracters: ArrayList<String>
-hashMap : HashMap<String,Integer>
+fileName : String
+caracter : String
 
-+Reduce()
++Reduce(fileName: String, caracter: String)
 +run() : void
-+setHashMap(hashMap: HashMap<String,Integer>: void
-+getHashMap() : HashMap<String,Integer>
 +generarReducing() : void
-
-
 }
 
 class Result {
-+mostrarPercentatgeCaracter(reduceThreads: ArrayList<Reduce>, len: int, file : String) : void
++mostrarPercentatgeCaracter(len : int, file : String) : void
 }
 
 class Shuffle {
 fileName : String
-llistaCaracters : ArrayList<String>
-+Shuffle(fileName : String, llistaCaracters : ArrayList<String>)
+caracter : String
++Shuffle(fileName : String, caracter: String)
 +run() : void
-+getLlistaCaracters() : ArrayList<String>
++getCaracter() : String
++getFileName() : String
 +generarShuffling() : void
 }
 
 class Split {
--splitCharacter : ArrayList<String>
--numLinies : int
-Split()
 +generatesplitWord(filename : String, count : int) : String
 }
 
