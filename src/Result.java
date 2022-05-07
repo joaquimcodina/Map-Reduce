@@ -10,7 +10,9 @@ import java.text.DecimalFormat;
 public class Result {
 
     /**
-     * Aquesta es la funció mostrarPercentatgeCaracter(), bàsicament mostra el resultat obtingut per pantalla.
+     * Aquesta es la funció mostrarPercentatgeCaracter(), bàsicament mostra el resultat obtingut per pantalla, a partir
+     * dels fitxers de text temporals que hem anat generat durant totes les fases, i que anirem esborrant automàticament
+     * un cop no s'hagin d'utilitzar més.
      *
      * @param len Mida del fitxer de text (per paraules).
      * @param file Nom del fitxer de text.
