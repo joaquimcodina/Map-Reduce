@@ -1,7 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -47,17 +44,22 @@ public class App {
                 map.join();
                 len += map.getLengthFitxer();
                 llistaCaracters.addAll(map.getLlistaCaracters());
+
             }
-            System.out.println("OK");
             BufferedWriter keys = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("keys.txt")));
+            BufferedReader readerKeys = new BufferedReader(new InputStreamReader(new FileInputStream("keys.txt")));
             for(String caracter : llistaCaracters){
                 keys.write(caracter);
                 keys.newLine();
-                for(Map map : mapThreads){
-                    shuffles.add(new Shuffle(map.getFileName(), caracter));
-                }
             }
             keys.close();
+            for (String key; (key = readerKeys.readLine()) != null;) {
+                for(Map map : mapThreads){
+                    shuffles.add(new Shuffle(map.getFileName(), key));
+                }
+            }
+            readerKeys.close();
+            System.out.println("OK");
 
             System.out.print("FASE SHUFFLE ");
             for (Shuffle shuffle : shuffles) {
