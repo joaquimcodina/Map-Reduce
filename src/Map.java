@@ -40,14 +40,16 @@ public class Map extends Thread{
     }
 
     /**
-     * Aquesta es la funció splitCharacter(), consisteix en aprofitar el ArrayList<String> que hem generat anteriorment
-     * en la funció generatesplitWord() de la Classe Split.
+     * Aquesta es la funció splitCharacter(), a partir dels fitxers de text temporals generats en la fase SPLIT, s'encarrega de
+     * separar cadascuna de les paraules del fitxer de text en caràcters alfàbetics (ignorant els caràcters especials i numèrics).
      *
-     * Hem implementat un bucle for, que s'encarrega de comprovar que les paraules no tinguin caràcters repetits, en cas afirmatiu,
-     * s'esborren i emmagatzemem el resultat dins d'un nou ArrayList<String>, ja que l'objectiu d'aquesta pràctica es mostrar
-     * la freqüència dels caràcters per paraula (sense tenir en compte els caràcters repetits).
+     * Utilitzem un BufferReader per llegir el fitxer de text generat en la fase Split, i per cada volta separem les paraules per caràcters,
+     * finalitzem el procés emmagatzemant els caràcters en un HashSet, el qual no permet emmagatzemar caràcters repetits.
      *
-     * llista on tenim emmagatzemat el contingut del fitxer de text, separat per paraules.
+     * Ademés, hem aprofitat aquesta funció per comptar el nombre de paraules del fitxer de text, i emmegatzemar el resultat en una variable
+     * anomenada lengthFitxer.
+     *
+     * Un cop generats tots els fitxers de text temporals, assignarem un per cada Thread Reduce.
      *
      */
    public void splitCharacter() throws FileNotFoundException {
