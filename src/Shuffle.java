@@ -29,14 +29,13 @@ public class Shuffle extends Thread{
     }
 
     /**
-     * Aquesta es la funció generarShuffling(), bàsicament s'encarrega de generar un HashMap, i a partir d'un bucle
-     * buscarà per cada caràcter, el nombre de vegades que apareix en el fitxer de text, en cas de que aparegui, afegim un 1
-     * a la ArrayList<Integer> que es troba dins del HashMap, i que més endavant sumarem tot el seu contingut.
+     * Aquesta es la funció generarShuffling(), a partir dels fitxers de text temporals generats en la fase split i d'un caràcter en concret
+     * que hem assignat per cada Classe Shuffle, comprova la freqüència d'aparició del caràcter assignat per cadascuna de les paraules que es troben
+     * en el fitxer de text, en cas afirmatiu, genera un nou fitxer de text temporal on anira la freqüència d'aparicions d'aquest caràcter (a partir de 1s),
+     * que més endavant utilitzarem en la fase Reduce per fer la suma.
      *
-     * llista on s'emmagatzema el contingut del fitxer de text, el qual hem esborrat els caràcters repetits per paraules,
-     *              i l'hem separat per caràcters amb un split.
-     *
-     * hashMap on s'emmagatzema els caràcters del fitxer juntament amb el seu nombre d'aparicions (sense sumar).
+     * Un cop generats tots els fitxers de text temporals, assignarem un caràcter per Thread Reduce, el qual s'encarregarà de
+     * fer les suma del nombre d'aparicions del caràcter assignat.
      *
      */
     public void generarShuffling() {
