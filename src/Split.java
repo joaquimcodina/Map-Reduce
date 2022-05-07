@@ -9,14 +9,14 @@ import java.io.*;
 public class Split {
 
     /**
-     * Aquesta es la funció generatesplitWord(), que consisteix en separar per paraules el contingut del ArrayList<String>,
-     * passat per paràmetre d'entrada.
+     * Aquesta es la funció generatesplitWord(), que consisteix en separar per paraules el contingut del fitxer de text temporal
+     * passat per paràmetre d'entrada, i guardar el resultat en fitxers de text temporals.
      *
-     * Utilitza un bucle foreach, que s'encarrega de reemplaçar els caràcters especials i a continuació, separar cadascuna de les linies
-     * del fitxer en paraules, i ho emmagatzema en un ArrayList<String> anomenat splitWord.
+     * @param fileName fitxer de text temporal generat en la fase Entry
+     * @param count comptador que s'incrementa en cada volta del bucle, que utilitzarem per identificar cadascun dels fitxers
+     *              generats en aquesta funció.
      *
-     * llista ArrayList on tenim emmagatzemat el contingut del fitxer de text.
-     * ArrayList del contingut del fitxer de text, separat per paraules.
+     * @return retorna el nom del fitxer de text generat en aquesta funció.
      *
      */
     public String generatesplitWord(String fileName, int count) throws FileNotFoundException {
