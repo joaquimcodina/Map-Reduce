@@ -24,11 +24,11 @@ public class Reduce extends Thread{
     }
 
     /**
-     * Aquesta es la funció generarReducing(), a del caràcter que li hem assignat d'un caràcter que li hem assignat a cada Thread Reduce,
+     * Aquesta es la funció generarReducing(), a partir del caràcter que li hem assignat a cada Thread Reduce,
      * s'encarrega de cercar el fitxer de text temporal d'aquell caràcter on tenim emmagatzemat el nombre d'aparicions, i acte seguit
      * realitzat la suma del nombre d'aparicions.
      *
-     * El resultat d'aquesta suma s'emmagatzema dins d'un altre fitxer de text temporal.
+     * El resultat d'aquesta suma s'emmagatzema dins d'un altre fitxer de text temporal, que utilitzarem per mostrar els resultats per pantalla.
      *
      */
     public void generarReducing(){
