@@ -2,12 +2,24 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Aquesta es la Classe Entry, accedeix al contingut dels fitxers de Text.
+ * Aquesta es la Classe Entry.
  *
  * @author Joaquim Codina (1566940) i Marc Cives (1563480)
  *
  */
 public class Entry {
+
+    /**
+     * Aquesta es el procés generarFitxers(), accedeix al fitxer de text passat per paràmetre d'entrada, i genera
+     * fitxers de text temporals amb un nombre de linies màxim.
+     *
+     * @param fitxer el nom del fitxer de text.
+     * @param maxlines el nombre de linies màxim que tindra cadascun dels fitxers de text temporals.
+     * @param llistaFitxers llista on emmagatzemarem els noms dels fitxers de text temporals, que acte seguit assignarem
+     *                      cadascuna de les classes següents del Split.
+     * @return retorna la llista amb els noms dels fitxers de text temporals.
+     *
+     */
     public ArrayList<String> generarFitxers(String fitxer, int maxlines, ArrayList<String> llistaFitxers) {
         String encoding = "UTF-8";
         BufferedReader reader;
