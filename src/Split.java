@@ -10,7 +10,7 @@ public class Split {
 
     /**
      * Aquesta es la funció generatesplitWord(), que consisteix en separar per paraules el contingut del fitxer de text temporal
-     * passat per paràmetre d'entrada, i guardar el resultat en fitxers de text temporals.
+     * passat per paràmetre d'entrada, i guardar el resultat en uns altres fitxers de text temporals.
      *
      * @param fileName fitxer de text temporal generat en la fase Entry
      * @param count comptador que s'incrementa en cada volta del bucle, que utilitzarem per identificar cadascun dels fitxers
