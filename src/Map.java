@@ -59,9 +59,8 @@ public class Map extends Thread{
            for (String line; (line = reader.readLine()) != null; ) {
                for (String s : line.split(" ")) {
                    for (int j = 0; j < s.length(); j++) {
-                       String caracter = String.valueOf(s.charAt(j));
-                       if(caracter.matches("[A-Za-zà-ùá-ú]+")){
-                           this.caracters.add(caracter);
+                       if(String.valueOf(s.charAt(j)).matches("[A-Za-zà-ùá-ú]+")){
+                           this.caracters.add(String.valueOf(s.charAt(j)));
                        }
                    }
                }
