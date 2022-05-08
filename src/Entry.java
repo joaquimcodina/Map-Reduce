@@ -22,14 +22,11 @@ public class Entry {
      */
     public ArrayList<String> generarFitxers(String fitxer, int maxlines, ArrayList<String> llistaFitxers) {
         String encoding = "UTF-8";
-        BufferedReader reader;
-        BufferedWriter writer;
-        String name = "";
         try {
             int count = 0;
-            name = "temp"+(0)+".txt";
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(fitxer), encoding));
-            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(name), encoding));
+            String name = "temp"+(0)+".txt";
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fitxer), encoding));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(name), encoding));
             for (String line; (line = reader.readLine()) != null;) {
                 if (count++ % maxlines == 0) {
                     writer.close();
