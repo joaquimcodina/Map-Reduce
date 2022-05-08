@@ -34,6 +34,7 @@ public class App {
                 mapThreads.add(new Map(split.generatesplitWord(fileName, count)));
                 count++;
             }
+            llistaFitxers.clear();
             System.out.println("OK");
 
             System.out.print("FASE MAP ");
@@ -44,21 +45,18 @@ public class App {
                 map.join();
                 len += map.getLengthFitxer();
                 llistaCaracters.addAll(map.getLlistaCaracters());
-
             }
             BufferedWriter keys = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("keys.txt")));
-            BufferedReader readerKeys = new BufferedReader(new InputStreamReader(new FileInputStream("keys.txt")));
             for(String caracter : llistaCaracters){
                 keys.write(caracter);
                 keys.newLine();
-            }
-            keys.close();
-            for (String key; (key = readerKeys.readLine()) != null;) {
                 for(Map map : mapThreads){
-                    shuffles.add(new Shuffle(map.getFileName(), key));
+                    shuffles.add(new Shuffle(map.getFileName(), caracter));
                 }
             }
-            readerKeys.close();
+            keys.close();
+            llistaCaracters.clear();
+            mapThreads.clear();
             System.out.println("OK");
 
             System.out.print("FASE SHUFFLE ");
@@ -69,6 +67,7 @@ public class App {
                 shuffle.join();
                 reduceThreads.add(new Reduce(shuffle.getFileName(), shuffle.getCaracter()));
             }
+            shuffles.clear();
             System.out.println("OK");
 
             System.out.print("FASE REDUCE ");
@@ -78,6 +77,7 @@ public class App {
             for(Reduce reduce : reduceThreads){
                 reduce.join();
             }
+            reduceThreads.clear();
             System.out.println("OK\n");
             result.mostrarPercentatgeCaracter(len, file);
         }
