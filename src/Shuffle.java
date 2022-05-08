@@ -43,8 +43,7 @@ public class Shuffle extends Thread{
             String encoding = "UTF-8";
             File fitxerSplit = new File(fileName);
             FileInputStream shuffleInputStream = new FileInputStream(fitxerSplit);
-            BufferedReader readerShuffle;
-            readerShuffle = new BufferedReader(new InputStreamReader(shuffleInputStream, encoding));
+            BufferedReader readerShuffle = new BufferedReader(new InputStreamReader(shuffleInputStream, encoding));
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("value_"+caracter+".txt", true), encoding));
             for (String line; (line = readerShuffle.readLine()) != null;) {
                 if (line.contains(caracter)) {
